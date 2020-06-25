@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "63f51008-0ef6-4bad-a070-100a8f2868e0",
+		"_postman_id": "d51fb7e3-f512-42ff-8adf-582e0a5866c5",
 		"name": "AutomizyDevTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -173,6 +173,200 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "project",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/project",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/student",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"student"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "983"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d7-ibu/TzfjDCkj6ll9MdWZ+wnNye0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 May 2020 20:10:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"students\": [\n        {\n            \"id\": \"1\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Feacsrxflines\",\n            \"email\": \"foscsxrd@mail.com\",\n            \"createdAt\": \"Wed May 27 2020 21:12:16 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 21:12:16 GMT+0200 (Central European Summer Time)\"\n        },\n        {\n            \"id\": \"9\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Feacssrxflines\",\n            \"email\": \"fosscsxrd@mail.com\",\n            \"createdAt\": \"Wed May 27 2020 22:03:21 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 22:03:21 GMT+0200 (Central European Summer Time)\"\n        },\n        {\n            \"id\": \"12\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Feacssrxsflines\",\n            \"email\": \"\",\n            \"createdAt\": \"Wed May 27 2020 22:03:52 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 22:03:52 GMT+0200 (Central European Summer Time)\"\n        },\n        {\n            \"id\": \"17\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Fairlane\",\n            \"email\": \"ford.fairlane@mail.com\",\n            \"createdAt\": \"Wed May 27 2020 22:07:25 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 22:07:25 GMT+0200 (Central European Summer Time)\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Ford Visit\",\n    \"description\": \"The students are going to visit a Ford factory.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/project",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/project/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"BMW Visit\",\n    \"description\": \"The students visit a BMW factory\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/project/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/project/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"project",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f411eb74-685e-4ba3-8c00-4335203a3485",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "32414d29-ce5d-421f-a8e8-95691076317c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
