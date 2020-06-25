@@ -1,0 +1,27 @@
+syntax = "proto3";
+package project;
+
+service ProjectService {
+    rpc List (Empty) returns (ProjectList) {}
+    rpc Read (ProjectRequestId) returns (Project) {}
+    rpc Create (Project) returns (Project) {}
+    rpc Update (Project) returns (Empty) {}
+    rpc Delete (ProjectRequestId) returns (Empty) {}
+}
+
+message Project {
+    string id = 1;
+    string name = 2;
+    string desc = 3;
+    string createdAt = 4;
+}
+
+message ProjectList {
+    repeated Project projects = 1;
+}
+
+message ProjectRequestId {
+    string id = 1;
+}
+
+message Empty {}
