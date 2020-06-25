@@ -20,7 +20,7 @@ exports.validationRules = (method) => {
         case 'create':
             return [
                 body('name').not().isEmpty(),
-                body('desc').not().isEmpty(),
+                body('description').not().isEmpty(),
             ]
         default:
             break
@@ -45,14 +45,19 @@ exports.validate = (req, res, next) => {
     })
 }
 
-const basicResHandler = (error, response, resolve, reject) => {
-    if (error) { reject(error) }
-    resolve(response)
-}
+const projectList = (options) => 
+    new Promise((resolve, reject) => 
+        client.List(options, (error, response) => {
+            if (error) {
+                console.log(error)
+                reject(error)
+            }
+            resolve(response)
+        }))
 
 exports.list = async (req, res, next) => {
     try {
-        let result = await client.List(options, basicResHandler)
+        let result = await projectList(options)
 
         res.status(200).json(result)
     } catch(e) {
@@ -60,12 +65,22 @@ exports.list = async (req, res, next) => {
     }
 }
 
+const projectCreate = (options) => 
+    new Promise((resolve, reject) => 
+        client.Create(options, (error, response) => {
+            if (error) {
+                console.log(error)
+                reject(error)
+            }
+            resolve(response)
+        }))
+
 exports.create = async (req, res, next) => {
     try {
-        let result = await client.Create({
-            "name": req.body.name,
-            "desc": req.body.desc,
-        }, basicResHandler)
+        let result = await projectCreate({
+            "name":         req.body.name,
+            "description":  req.body.description,
+        })
 
         res.status(201).json(result)
     } catch(err) {
@@ -81,11 +96,21 @@ exports.create = async (req, res, next) => {
     }
 }
 
+const projectRead = (options) => 
+    new Promise((resolve, reject) => 
+        client.Read(options, (error, response) => {
+            if (error) {
+                console.log(error)
+                reject(error)
+            }
+            resolve(response)
+        }))
+
 exports.read = async (req, res, next) => {
     try {
-        let result = await client.Read({
+        let result = await projectRead({
             "id": req.params.id
-        }, basicResHandler) 
+        }) 
 
         res.status(200).json(result)
     } catch(e) {
@@ -95,15 +120,25 @@ exports.read = async (req, res, next) => {
     }
 }
 
+const projectUpdate = (options) => 
+    new Promise((resolve, reject) => 
+        client.Update(options, (error, response) => {
+            if (error) {
+                console.log(error)
+                reject(error)
+            }
+            resolve(response)
+        }))
+
 exports.update = async (req, res, next) => {
     try {
         let id = req.params.id
 
-        let result = await client.Update({
-            "id": id,
-            "name": req.body.name,
-            "desc": req.body.desc
-        }, basicResHandler)
+        let result = await projectUpdate({
+            "id":           id,
+            "name":         req.body.name,
+            "description":  req.body.description
+        })
 
         res.status(200).json({
             id: id
@@ -115,13 +150,23 @@ exports.update = async (req, res, next) => {
     }
 }
 
+const projectDelete = (options) => 
+    new Promise((resolve, reject) => 
+        client.Delete(options, (error, response) => {
+            if (error) {
+                console.log(error)
+                reject(error)
+            }
+            resolve(response)
+        }))
+
 exports.delete = async (req, res, next) => {
     try{
         let id = req.params.id
-        let result = await client.Delete({
+        let result = await projectDelete({
             "id": id
-        }, basicResHandler)
-        
+        })
+
         res.status(200).json({
             id: id
         })

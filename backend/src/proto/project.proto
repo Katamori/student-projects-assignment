@@ -12,8 +12,9 @@ service ProjectService {
 message Project {
     string id = 1;
     string name = 2;
-    string desc = 3;
+    string description = 3;
     string createdAt = 4;
+    string updatedAt = 5;
 }
 
 message ProjectList {

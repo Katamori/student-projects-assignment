@@ -47,7 +47,7 @@ const List = async (call, callback) => {
 const Read = async (call, callback) => {
     try {
         let id = call.request.id
-        let result = await studentModel.findByPk(id)
+        let result = await projectModel.findByPk(id)
 
         if (!result) {
             callback(RES_NOTFOUND)
@@ -87,8 +87,8 @@ const Update = async (call, callback) => {
         let project = call.request
 
         let newValues = {
-            "name":     project.name, 
-            "desc":     project.desc
+            "name":         project.name, 
+            "description":  project.description
         }
 
         let affectedRows = await projectModel.update(newValues, {
