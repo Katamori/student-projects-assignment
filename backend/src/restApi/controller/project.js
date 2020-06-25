@@ -45,24 +45,91 @@ exports.validate = (req, res, next) => {
     })
 }
 
+const basicResHandler = (error, response, resolve, reject) => {
+    if (error) { reject(error) }
+    resolve(response)
+}
+
 exports.list = async (req, res, next) => {
-    // todo
+    try {
+        let result = await client.List(options, basicResHandler)
+
+        res.status(200).json(result)
+    } catch(e) {
+        res.json(e)
+    }
 }
 
 exports.create = async (req, res, next) => {
-    // todo
+    try {
+        let result = await client.Create({
+            "name": req.body.name,
+            "desc": req.body.desc,
+        }, basicResHandler)
+
+        res.status(201).json(result)
+    } catch(err) {
+        switch(err?.details) {
+            case 'ALREADY_EXISTS':
+                res.status(409).json({
+                    error: err.metadata.getMap()
+                })
+                break
+            default:
+                res.status(500).json(err)
+        }
+    }
 }
 
 exports.read = async (req, res, next) => {
-    // todo
+    try {
+        let result = await client.Read({
+            "id": req.params.id
+        }, basicResHandler) 
+
+        res.status(200).json(result)
+    } catch(e) {
+        let code = e.details === 'Not found' ? 204: 500
+
+        res.status(code).json(e)
+    }
 }
 
 exports.update = async (req, res, next) => {
-    // todo
+    try {
+        let id = req.params.id
+
+        let result = await client.Update({
+            "id": id,
+            "name": req.body.name,
+            "desc": req.body.desc
+        }, basicResHandler)
+
+        res.status(200).json({
+            id: id
+        })
+    } catch(e) {
+        let code = e.details === 'Not found' ? 204: 500
+
+        res.status(code).json(e)
+    }
 }
 
 exports.delete = async (req, res, next) => {
-    // todo
+    try{
+        let id = req.params.id
+        let result = await client.Delete({
+            "id": id
+        }, basicResHandler)
+        
+        res.status(200).json({
+            id: id
+        })
+    } catch(e){
+        let code = e.details === 'Not found' ? 204: 500
+
+        res.status(code).json(e)
+    }
 }
 
 // Create gRPC client
