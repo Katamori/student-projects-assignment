@@ -20,27 +20,110 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const projectProto = grpc.loadPackageDefinition(packageDefinition).project
 
+// Frequently used response objects
+const RES_ABORTED = {
+    code: grpc.status.ABORTED,
+    details: "Aborted"
+}
 
+const RES_NOTFOUND = {
+    code: grpc.status.NOT_FOUND,
+    details: "Not found"
+}
 
 // Definitions
 const List = async (call, callback) => {
-    // todo
+    try {
+        const result = await projectModel.findAll()
+
+        callback(null, {
+            projects: result
+        })
+    } catch(err) {
+        callback(RES_ABORTED)
+    }
 }
 
 const Read = async (call, callback) => {
-    // todo
+    try {
+        let id = call.request.id
+        let result = await studentModel.findByPk(id)
+
+        if (!result) {
+            callback(RES_NOTFOUND)
+        }
+
+        callback(null, result)
+    } catch(err) {
+        callback(RES_ABORTED)
+    }
 }
 
 const Create = async (call, callback) => {
-    // todo
+    let project = call.request
+
+    try {
+        let result = await projectModel.create(project)
+        
+        callback(null, result)
+    } catch(err) {
+        switch(err.name) {
+            case 'SequelizeUniqueConstraintError':
+                let jsErr = new Error('ALREADY_EXISTS')
+
+                jsErr.code = grpc.status.ALREADY_EXISTS
+                jsErr.metadata = dbErrorCollector({errors: err.errors})
+
+                callback(jsErr)
+                break
+            default:
+                callback(RES_ABORTED)
+        }
+    }
 }
 
 const Update = async (call, callback) => {
-    // todo
+    try {
+        let project = call.request
+
+        let newValues = {
+            "name":     project.name, 
+            "desc":     project.desc
+        }
+
+        let affectedRows = await projectModel.update(newValues, {
+            where: {
+                id: project.id
+            }
+        })
+
+        if (affectedRows.length < 1) {
+            callback(RES_NOTFOUND)
+        }
+
+        callback(null, affectedRows)
+    } catch(err) {
+        callback(RES_ABORTED)
+    }
 }
 
 const Delete = async (call, callback) => {
-    // todo
+    try {
+        let id = call.request.id
+        let result = await projectModel.destroy({
+            where: {
+                "id": id
+            }
+        })
+
+        if (!result) {
+            callback(RES_NOTFOUND)
+        }
+
+        callback(null, result)
+    } catch(err) {
+        callback(RES_ABORTED)
+    }
 }
 
 // Collect errors
