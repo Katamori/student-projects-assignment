@@ -20,7 +20,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const projectProto = grpc.loadPackageDefinition(packageDefinition).project
 
-const server = new grpc.Server()
+
 
 // Definitions
 const List = async (call, callback) => {
@@ -42,3 +42,38 @@ const Update = async (call, callback) => {
 const Delete = async (call, callback) => {
     // todo
 }
+
+// Collect errors
+const dbErrorCollector=({ errors }) => {
+    const metadata = new grpc.Metadata()
+
+    const error = errors.map(item => {
+        metadata.set(item.path, item.type)
+    })
+
+    return metadata
+}
+
+// Server initialization
+const server = new grpc.Server()
+
+const exposedFunctions = {
+    List,
+    Create,
+    Read,
+    Update,
+    Delete
+}
+
+server.addService(projectProto.ProjectService.service, exposedFunctions)
+server.bind(config.project.host +':'+ config.project.port, grpc.ServerCredentials.createInsecure())
+
+db.sequelize.sync().then(() => {
+    console.log("Re-sync db.")
+    server.start()
+    console.log('Server running at ' + config.project.host +':'+ config.project.port)
+})
+.catch(err => {
+    console.log('Can not start server at ' + config.project.host +':'+ config.project.port)
+    console.log(err)
+})
