@@ -370,6 +370,151 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "management",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/management",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"management"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/student",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"student"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "983"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d7-ibu/TzfjDCkj6ll9MdWZ+wnNye0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 May 2020 20:10:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"students\": [\n        {\n            \"id\": \"1\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Feacsrxflines\",\n            \"email\": \"foscsxrd@mail.com\",\n            \"createdAt\": \"Wed May 27 2020 21:12:16 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 21:12:16 GMT+0200 (Central European Summer Time)\"\n        },\n        {\n            \"id\": \"9\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Feacssrxflines\",\n            \"email\": \"fosscsxrd@mail.com\",\n            \"createdAt\": \"Wed May 27 2020 22:03:21 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 22:03:21 GMT+0200 (Central European Summer Time)\"\n        },\n        {\n            \"id\": \"12\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Feacssrxsflines\",\n            \"email\": \"\",\n            \"createdAt\": \"Wed May 27 2020 22:03:52 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 22:03:52 GMT+0200 (Central European Summer Time)\"\n        },\n        {\n            \"id\": \"17\",\n            \"first_name\": \"Ford\",\n            \"last_name\": \"Fairlane\",\n            \"email\": \"ford.fairlane@mail.com\",\n            \"createdAt\": \"Wed May 27 2020 22:07:25 GMT+0200 (Central European Summer Time)\",\n            \"updatedAt\": \"Wed May 27 2020 22:07:25 GMT+0200 (Central European Summer Time)\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"student_id\": \"1\",\n    \"project_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/management",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/management/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"management",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5e413f05-8b2d-4ee5-aca0-0116401cdf46",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "65ccfa92-f979-41bc-91ec-ed855b322669",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
