@@ -3,9 +3,7 @@ package management;
 
 service ManagementService {
     rpc List (Empty) returns (ManagementList) {}
-    rpc Read (ManagementRequestId) returns (Management) {}
     rpc Create (Management) returns (Management) {}
-    rpc Update (Management) returns (Empty) {}
     rpc Delete (ManagementRequestId) returns (Empty) {} 
 }
 
