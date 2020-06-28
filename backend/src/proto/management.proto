@@ -1,0 +1,30 @@
+syntax = "proto3";
+package management;
+
+service ManagementService {
+    rpc List (Empty) returns (ManagementList) {}
+    rpc Read (ManagementRequestId) returns (Management) {}
+    rpc Create (Management) returns (Management) {}
+    rpc Update (Management) returns (Empty) {}
+    rpc Delete (ManagementRequestId) returns (Empty) {} 
+}
+
+message Management {
+    string id = 1;
+    string student_name = 2;
+    string project_name = 3;
+    string student_id = 4;
+    string project_id = 5;
+    string createdAt = 6;
+    string updatedAt = 7;
+}
+
+message ManagementList {
+    repeated Management managements = 1;
+}
+
+message ManagementRequestId {
+    string id = 1;
+}
+
+message Empty {}
