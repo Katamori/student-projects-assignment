@@ -5,7 +5,7 @@ import ProjectModel from '../../microservice/database/model/project'
 import StudentModel from '../../microservice/database/model/student'
 
 import path from 'path'
-import { fn, col, Op, where } from 'sequelize'
+import { QueryTypes } from 'sequelize'
 import grpc from 'grpc'
 const protoLoader = require("@grpc/proto-loader")
 
@@ -39,45 +39,10 @@ const RES_NOTFOUND = {
 // Definitions
 const List = async (call, callback) => {
     try {
-        const result = await managementModel.findAll({
-            include: [
-                {
-                    model: studentModel,
-                    association: projectModel.belongsToMany(
-                        studentModel, 
-                        {
-                            through: managementModel,
-                            foreignKey: 'project_id',
-                        }
-                    )
-                },
-                {
-                    model: projectModel,
-                    association: studentModel.belongsToMany(
-                        projectModel, 
-                        {
-                            through: managementModel,
-                            foreignKey: 'student_id'
-                        }
-                    )
-                }
-            ],
-            attributes: [
-                'id',
-                [
-                    fn('CONCAT', col('students.first_name'), ' ', col('students.last_name')), 
-                    'student_name'
-                ],
-                [
-                    col('projects.name'),
-                    'project_name'
-                ],
-                'student_id',
-                'project_id',
-                'createdAt',
-                'updatedAt'
-            ]
-        })
+        // using raw query due to total incompetence on sequelize's side
+        const result = await db.sequelize.query("select m.id, CONCAT(s.last_name, ' ', s.first_name) AS student_name, p.name as project_name, m.student_id, m.project_id, m.createdAt, m.updatedAt from management m left join students s on m.student_id = s.id left join projects p on m.project_id = p.id;", { 
+            type: QueryTypes.SELECT 
+        });
 
         callback(null, {
             managements: result
