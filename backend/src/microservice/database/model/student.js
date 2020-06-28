@@ -1,3 +1,5 @@
+import ProjectModel from './project'
+
 const StudentModel = ({
     sequelize, 
     DataType
@@ -28,6 +30,16 @@ const StudentModel = ({
       defaultValue: NOW
     }
   })
+
+  Student.belongsToMany(
+    ProjectModel, 
+    {
+      through: 'management',
+      foreignKey: 'student_id',
+      otherKey: 'project_id'
+    }
+  )
+
   return Student;
 }
   
